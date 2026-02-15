@@ -6,7 +6,8 @@ from src.main.config.bedrock_configs import GUARDRAIL_CONFIG
 load_dotenv()
 
 default_prompt_id = os.getenv('AWS_BEDROCK_DEFAULT_PROMPT_ID')
-default_model_id = os.getenv('AWS_BEDROCK_MODEL_ID')
+default_model_id = os.getenv('AWS_BEDROCK_DEFAULT_MODEL_ID')
+default_prompt_version = os.getenv('AWS_BEDROCK_DEFAULT_PROMPT_VERSION')
 guardrail_id = os.getenv('AWS_BEDROCK_GUARDRAIL_ID')
 guardrail_version = os.getenv('AWS_BEDROCK_GUARDRAIL_VERSION')
 aws_region = os.getenv('AWS_REGION')    
@@ -17,7 +18,7 @@ bedrock_runtime = boto3.client('bedrock-runtime', region_name=aws_region)
 def get_default_prompt() -> str:
     rendered_prompt = bedrock_agent.get_prompt(
         promptIdentifier=default_prompt_id,
-        promptVersion="DRAFT" 
+        promptVersion=default_prompt_version 
     )
     system_text = rendered_prompt['variants'][0]['templateConfiguration']['text']['text']
     return system_text
@@ -25,10 +26,12 @@ def get_default_prompt() -> str:
 def get_default_model() -> str:
     return default_model_id
 
-def get_generic_prompt(prompt_id: str) -> str:
+def get_generic_prompt(prompt_id: str, prompt_version: str = None) -> str:
+    if prompt_version is None:
+        prompt_version = default_prompt_version
     rendered_prompt = bedrock_agent.get_prompt(
         promptIdentifier=prompt_id,
-        promptVersion="DRAFT" 
+        promptVersion=prompt_version
     )
     system_text = rendered_prompt['variants'][0]['templateConfiguration']['text']['text']
     return system_text

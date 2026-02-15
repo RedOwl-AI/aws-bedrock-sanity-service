@@ -5,8 +5,8 @@ def generate_default_response(user_prompt: str) -> str:
     model_id = get_default_model()
     return generate_response(user_prompt, model_id, system_prompt)
 
-def generate_response_with_custom_prompt_id(user_prompt: str, prompt_id: str, model_id: str) -> str:
-    system_prompt = get_generic_prompt(prompt_id)
+def generate_response_with_custom_prompt_id(user_prompt: str, prompt_id: str, model_id: str, prompt_version: str = None) -> str:
+    system_prompt = get_generic_prompt(prompt_id, prompt_version)
     model_id = get_generic_model(model_id)
     return generate_response(user_prompt, model_id, system_prompt)
 
