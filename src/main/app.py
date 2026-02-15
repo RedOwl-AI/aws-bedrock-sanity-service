@@ -1,11 +1,20 @@
+import logging
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.main.controllers.health_controller import router as health_router
 from src.main.controllers.bedrock_controller import router as bedrock_router
+from src.main.controllers.health_controller import router as health_router
+
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="aws-bedrock-sanity-service")
+
+
+@app.on_event("startup")
+def startup():
+    logger.info("aws-bedrock-sanity-service started")
 
 app.add_middleware(
     CORSMiddleware,
