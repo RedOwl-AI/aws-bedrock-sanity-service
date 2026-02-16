@@ -12,7 +12,7 @@ venv/
 .cursor/
 .idea/
 *.md
-!DEPLOYMENT.md
+!README.md
 
 # Python
 __pycache__/

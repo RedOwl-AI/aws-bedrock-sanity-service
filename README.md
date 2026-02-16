@@ -1,6 +1,6 @@
-# Deployment guide (EKS)
+# aws-bedrock-sanity-service
 
-Handover notes for the cloud team deploying **aws-bedrock-sanity-service** to EKS.
+FastAPI service for AWS Bedrock (prompts, models, guardrails). Handover notes for the cloud team deploying to EKS.
 
 ## Overview
 
