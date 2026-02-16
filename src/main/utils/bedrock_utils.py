@@ -47,12 +47,12 @@ def generate_response(user_prompt: str, model_id: str, system_prompt: str) -> st
     logger.info("Generating Bedrock response", extra={"model_id": model_id})
     try:
         response = bedrock_runtime.converse(
-            model_id=model_id,
+            modelId=model_id,
             messages=[{"role": "user", "content": [{"text": user_prompt}]}],
             system=[{"text": system_prompt}],
-            guardrail_config=GUARDRAIL_CONFIG,
+            guardrailConfig=GUARDRAIL_CONFIG,
         )
-        return response["output"]["messages"]["content"][0]["text"]
+        return response["output"]["message"]["content"][0]["text"]
     except Exception as e:
         logger.error("Bedrock converse failed", extra={"model_id": model_id, "error": str(e)})
         raise
