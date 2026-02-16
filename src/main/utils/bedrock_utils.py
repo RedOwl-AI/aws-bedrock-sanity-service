@@ -4,7 +4,7 @@ import os
 import boto3
 from dotenv import load_dotenv
 
-from src.main.config.bedrock_configs import GUARDRAIL_CONFIG
+from main.config.bedrock_configs import GUARDRAIL_CONFIG
 
 load_dotenv()
 

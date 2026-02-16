@@ -1,6 +1,6 @@
 import logging
 
-from src.main.utils.bedrock_utils import (
+from main.utils.bedrock_utils import (
     generate_response,
     get_default_model,
     get_default_prompt,
