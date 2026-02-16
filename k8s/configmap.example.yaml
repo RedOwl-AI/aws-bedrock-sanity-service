@@ -1,0 +1,12 @@
+# just made this example for reference
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-bedrock-sanity-service-config
+data:
+  AWS_REGION: "us-east-1"
+  AWS_BEDROCK_DEFAULT_PROMPT_ID: "<prompt-id>"
+  AWS_BEDROCK_DEFAULT_PROMPT_VERSION: "<version>"
+  AWS_BEDROCK_DEFAULT_MODEL_ID: "<model-id>"
+  AWS_BEDROCK_GUARDRAIL_ID: "<guardrail-id>"
+  AWS_BEDROCK_GUARDRAIL_VERSION: "<version>"

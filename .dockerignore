@@ -1,0 +1,33 @@
+# Dependencies and local env
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.cursor/
+.idea/
+*.md
+!DEPLOYMENT.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# AWS (never ship into image)
+.aws/
+credentials
+accessKeys.csv
+
+# OS and misc
+.DS_Store
+*.log
