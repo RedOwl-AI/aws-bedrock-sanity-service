@@ -1,0 +1,16 @@
+# just made this example for reference
+apiVersion: v1
+kind: Service
+metadata:
+  name: aws-bedrock-sanity-service
+  labels:
+    app: aws-bedrock-sanity-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  selector:
+    app: aws-bedrock-sanity-service

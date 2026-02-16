@@ -1,0 +1,78 @@
+# the env should be wired to ConfigMap/Secret, just made this example for reference
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-bedrock-sanity-service
+  labels:
+    app: aws-bedrock-sanity-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-bedrock-sanity-service
+  template:
+    metadata:
+      labels:
+        app: aws-bedrock-sanity-service
+    spec:
+      containers:
+        - name: app
+          image: aws-bedrock-sanity-service:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: http
+          env:
+            - name: AWS_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: aws-bedrock-sanity-service-config
+                  key: AWS_REGION
+            - name: AWS_BEDROCK_DEFAULT_PROMPT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: aws-bedrock-sanity-service-config
+                  key: AWS_BEDROCK_DEFAULT_PROMPT_ID
+            - name: AWS_BEDROCK_DEFAULT_PROMPT_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: aws-bedrock-sanity-service-config
+                  key: AWS_BEDROCK_DEFAULT_PROMPT_VERSION
+            - name: AWS_BEDROCK_DEFAULT_MODEL_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: aws-bedrock-sanity-service-config
+                  key: AWS_BEDROCK_DEFAULT_MODEL_ID
+            - name: AWS_BEDROCK_GUARDRAIL_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: aws-bedrock-sanity-service-config
+                  key: AWS_BEDROCK_GUARDRAIL_ID
+            - name: AWS_BEDROCK_GUARDRAIL_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: aws-bedrock-sanity-service-config
+                  key: AWS_BEDROCK_GUARDRAIL_VERSION
+          livenessProbe:
+            httpGet:
+              path: /sanity-app/v1/health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /sanity-app/v1/health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
